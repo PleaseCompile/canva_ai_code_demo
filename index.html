@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom Garden - ร้านดอกไม้ออนไลน์</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .flower-bg {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 50%, #f9a8d4 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .cart-badge {
+            animation: bounce 0.5s ease-in-out;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="bg-pink-50 font-sans">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <div class="text-3xl">🌸</div>
+                    <h1 class="text-2xl font-bold text-pink-600">Bloom Garden</h1>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" onclick="showSection('home')" class="text-gray-700 hover:text-pink-600 transition-colors">หน้าแรก</a>
+                    <a href="#" onclick="showSection('products')" class="text-gray-700 hover:text-pink-600 transition-colors">สินค้าทั้งหมด</a>
+                    <a href="#" onclick="showSection('promotions')" class="text-gray-700 hover:text-pink-600 transition-colors">โปรโมชั่น</a>
+                    <a href="#" onclick="showSection('cart')" class="text-gray-700 hover:text-pink-600 transition-colors relative">
+                        ตะกร้าสินค้า
+                        <span id="cart-badge" class="absolute -top-2 -right-2 bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                    </a>
+                    <a href="#" onclick="showSection('login')" class="text-gray-700 hover:text-pink-600 transition-colors" id="auth-link">เข้าสู่ระบบ</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-2 space-y-2">
+                <a href="#" onclick="showSection('home')" class="block text-gray-700 hover:text-pink-600">หน้าแรก</a>
+                <a href="#" onclick="showSection('products')" class="block text-gray-700 hover:text-pink-600">สินค้าทั้งหมด</a>
+                <a href="#" onclick="showSection('promotions')" class="block text-gray-700 hover:text-pink-600">โปรโมชั่น</a>
+                <a href="#" onclick="showSection('cart')" class="block text-gray-700 hover:text-pink-600">ตะกร้าสินค้า</a>
+                <a href="#" onclick="showSection('login')" class="block text-gray-700 hover:text-pink-600">เข้าสู่ระบบ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home-section" class="section-content">
+            <!-- Hero Section -->
+            <div class="flower-bg py-20">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <h2 class="text-5xl font-bold text-pink-800 mb-6">ดอกไม้สวยงาม สำหรับทุกโอกาส</h2>
+                    <p class="text-xl text-pink-700 mb-8">จัดส่งความสุขถึงบ้านคุณด้วยดอกไม้สดใหม่คุณภาพสูง</p>
+                    
+                    <!-- Search Bar -->
+                    <div class="max-w-md mx-auto mb-8">
+                        <div class="relative">
+                            <input type="text" id="search-input" placeholder="ค้นหาดอกไม้..." class="w-full px-4 py-3 rounded-full border-2 border-pink-300 focus:border-pink-500 focus:outline-none">
+                            <button onclick="searchProducts()" class="absolute right-2 top-2 bg-pink-500 text-white p-2 rounded-full hover:bg-pink-600 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button onclick="showSection('products')" class="bg-pink-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-pink-700 transition-colors">
+                        เลือกซื้อดอกไม้
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Featured Products -->
+            <div class="max-w-7xl mx-auto px-4 py-16">
+                <h3 class="text-3xl font-bold text-center text-pink-800 mb-12">สินค้าแนะนำ</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="featured-products">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products-section" class="section-content hidden">
+            <div class="max-w-7xl mx-auto px-4 py-16">
+                <h2 class="text-3xl font-bold text-center text-pink-800 mb-12">สินค้าทั้งหมด</h2>
+                
+                <!-- Filter Options -->
+                <div class="mb-8 flex flex-wrap gap-4 justify-center">
+                    <button onclick="filterProducts('all')" class="filter-btn bg-pink-500 text-white px-4 py-2 rounded-full">ทั้งหมด</button>
+                    <button onclick="filterProducts('roses')" class="filter-btn bg-pink-200 text-pink-800 px-4 py-2 rounded-full">กุหลาบ</button>
+                    <button onclick="filterProducts('tulips')" class="filter-btn bg-pink-200 text-pink-800 px-4 py-2 rounded-full">ทิวลิป</button>
+                    <button onclick="filterProducts('orchids')" class="filter-btn bg-pink-200 text-pink-800 px-4 py-2 rounded-full">กล้วยไม้</button>
+                    <button onclick="filterProducts('bouquets')" class="filter-btn bg-pink-200 text-pink-800 px-4 py-2 rounded-full">ช่อดอกไม้</button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6" id="all-products">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Promotions Section -->
+        <section id="promotions-section" class="section-content hidden">
+            <div class="max-w-7xl mx-auto px-4 py-16">
+                <h2 class="text-3xl font-bold text-center text-pink-800 mb-12">โปรโมชั่นพิเศษ</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="promotions-list">
+                    <!-- Promotions will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Section -->
+        <section id="cart-section" class="section-content hidden">
+            <div class="max-w-4xl mx-auto px-4 py-16">
+                <h2 class="text-3xl font-bold text-center text-pink-800 mb-12">ตะกร้าสินค้า</h2>
+                <div id="cart-items" class="space-y-4">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div id="cart-summary" class="mt-8 bg-white p-6 rounded-lg shadow-lg">
+                    <!-- Cart summary will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login-section" class="section-content hidden">
+            <div class="max-w-md mx-auto px-4 py-16">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold text-center text-pink-800 mb-6">เข้าสู่ระบบ</h2>
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label>
+                            <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500">
+                        </div>
+                        <div class="mb-6">
+                            <label for="password" class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label>
+                            <input type="password" id="password" name="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500">
+                        </div>
+                        <button type="submit" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">เข้าสู่ระบบ</button>
+                    </form>
+                    <div class="mt-4 text-center">
+                        <a href="#" onclick="showRegister()" class="text-pink-600 hover:text-pink-800">ยังไม่มีบัญชี? สมัครสมาชิก</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register-section" class="section-content hidden">
+            <div class="max-w-md mx-auto px-4 py-16">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold text-center text-pink-800 mb-6">สมัครสมาชิก</h2>
+                    <form id="register-form" onsubmit="handleRegister(event)">
+                        <div class="mb-4">
+                            <label for="reg-name" class="block text-gray-700 text-sm font-bold mb-2">ชื่อ-นามสกุล</label>
+                            <input type="text" id="reg-name" name="name" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="reg-email" class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label>
+                            <input type="email" id="reg-email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="reg-phone" class="block text-gray-700 text-sm font-bold mb-2">เบอร์โทรศัพท์</label>
+                            <input type="tel" id="reg-phone" name="phone" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500">
+                        </div>
+                        <div class="mb-6">
+                            <label for="reg-password" class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label>
+                            <input type="password" id="reg-password" name="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500">
+                        </div>
+                        <button type="submit" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">สมัครสมาชิก</button>
+                    </form>
+                    <div class="mt-4 text-center">
+                        <a href="#" onclick="showSection('login')" class="text-pink-600 hover:text-pink-800">มีบัญชีแล้ว? เข้าสู่ระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkout Section -->
+        <section id="checkout-section" class="section-content hidden">
+            <div class="max-w-4xl mx-auto px-4 py-16">
+                <h2 class="text-3xl font-bold text-center text-pink-800 mb-12">ชำระเงิน</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold text-pink-800 mb-4">ข้อมูลการจัดส่ง</h3>
+                        <form id="checkout-form" onsubmit="handleCheckout(event)">
+                            <div class="mb-4">
+                                <label for="delivery-name" class="block text-gray-700 text-sm font-bold mb-2">ชื่อผู้รับ</label>
+                                <input type="text" id="delivery-name" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="delivery-phone" class="block text-gray-700 text-sm font-bold mb-2">เบอร์โทรศัพท์</label>
+                                <input type="tel" id="delivery-phone" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="delivery-address" class="block text-gray-700 text-sm font-bold mb-2">ที่อยู่จัดส่ง</label>
+                                <textarea id="delivery-address" required rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500"></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="delivery-date" class="block text-gray-700 text-sm font-bold mb-2">วันที่ต้องการรับ</label>
+                                <input type="date" id="delivery-date" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500">
+                            </div>
+                            <div class="mb-6">
+                                <label for="special-note" class="block text-gray-700 text-sm font-bold mb-2">หมายเหตุพิเศษ</label>
+                                <textarea id="special-note" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500" placeholder="ข้อความที่ต้องการแนบ..."></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold text-pink-800 mb-4">สรุปคำสั่งซื้อ</h3>
+                        <div id="checkout-summary">
+                            <!-- Order summary will be loaded here -->
+                        </div>
+                        <button onclick="processOrder()" class="w-full bg-pink-600 text-white py-3 px-4 rounded-lg hover:bg-pink-700 transition-colors mt-4">
+                            ยืนยันคำสั่งซื้อ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Detail Modal -->
+        <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg max-w-2xl w-full max-h-screen overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="modal-title" class="text-2xl font-bold text-pink-800"></h3>
+                        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="modal-content">
+                        <!-- Product details will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-pink-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="text-2xl">🌸</div>
+                        <h3 class="text-xl font-bold">Bloom Garden</h3>
+                    </div>
+                    <p class="text-pink-200">ร้านดอกไม้ออนไลน์ที่นำเสนอดอกไม้สดใหม่คุณภาพสูงสำหรับทุกโอกาส</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">ติดต่อเรา</h4>
+                    <div class="space-y-2 text-pink-200">
+                        <p>📞 02-123-4567</p>
+                        <p>📧 info@bloomgarden.com</p>
+                        <p>📍 123 ถนนสุขุมวิท กรุงเทพฯ</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">เวลาทำการ</h4>
+                    <div class="space-y-2 text-pink-200">
+                        <p>จันทร์ - ศุกร์: 8:00 - 18:00</p>
+                        <p>เสาร์ - อาทิตย์: 9:00 - 17:00</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">ติดตามเรา</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-pink-200 hover:text-white transition-colors">Facebook</a>
+                        <a href="#" class="text-pink-200 hover:text-white transition-colors">Instagram</a>
+                        <a href="#" class="text-pink-200 hover:text-white transition-colors">Line</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-pink-700 mt-8 pt-8 text-center text-pink-200">
+                <p>&copy; 2024 Bloom Garden. สงวนลิขสิทธิ์.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let cart = [];
+        let products = [
+            {
+                id: 1,
+                name: 'กุหลาบแดงสด',
+                price: 150,
+                originalPrice: 200,
+                category: 'roses',
+                image: '🌹',
+                description: 'กุหลาบแดงสดใหม่ สัญลักษณ์แห่งความรัก เหมาะสำหรับวันพิเศษ',
+                inStock: true,
+                isPromotion: true
+            },
+            {
+                id: 2,
+                name: 'ทิวลิปสีชมพู',
+                price: 120,
+                category: 'tulips',
+                image: '🌷',
+                description: 'ทิวลิปสีชมพูนุ่มนวล นำเข้าจากฮอลแลนด์ คุณภาพพรีเมียม',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 3,
+                name: 'กล้วยไม้สีม่วง',
+                price: 300,
+                category: 'orchids',
+                image: '🌺',
+                description: 'กล้วยไม้สีม่วงสวยงาม เลี้ยงง่าย ดูแลไม่ยาก',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 4,
+                name: 'ช่อดอกไม้รวม',
+                price: 450,
+                originalPrice: 600,
+                category: 'bouquets',
+                image: '💐',
+                description: 'ช่อดอกไม้รวมสีสันสวยงาม เหมาะสำหรับมอบเป็นของขวัญ',
+                inStock: true,
+                isPromotion: true
+            },
+            {
+                id: 5,
+                name: 'กุหลาบขาว',
+                price: 140,
+                category: 'roses',
+                image: '🤍',
+                description: 'กุหลาบขาวบริสุทธิ์ สื่อถึงความจริงใจและความบริสุทธิ์',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 6,
+                name: 'ดอกทานตะวัน',
+                price: 80,
+                category: 'sunflowers',
+                image: '🌻',
+                description: 'ดอกทานตะวันสดใส เติมความสุขให้กับทุกวัน',
+                inStock: true,
+                isPromotion: false
+            }
+        ];
+
+        // Initialize the website
+        function init() {
+            loadFeaturedProducts();
+            loadAllProducts();
+            loadPromotions();
+            updateCartDisplay();
+            setMinDate();
+        }
+
+        // Navigation functions
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+            
+            // Update cart display when showing cart section
+            if (sectionName === 'cart') {
+                displayCart();
+            }
+            
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Product functions
+        function loadFeaturedProducts() {
+            const featuredProducts = products.filter(p => p.isPromotion).slice(0, 3);
+            const container = document.getElementById('featured-products');
+            container.innerHTML = featuredProducts.map(product => createProductCard(product)).join('');
+        }
+
+        function loadAllProducts() {
+            const container = document.getElementById('all-products');
+            container.innerHTML = products.map(product => createProductCard(product)).join('');
+        }
+
+        function createProductCard(product) {
+            const discountBadge = product.isPromotion ? 
+                `<div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                    ลด ${Math.round((1 - product.price / product.originalPrice) * 100)}%
+                </div>` : '';
+            
+            const priceDisplay = product.originalPrice ? 
+                `<div class="flex items-center space-x-2">
+                    <span class="text-xl font-bold text-pink-600">฿${product.price}</span>
+                    <span class="text-sm text-gray-500 line-through">฿${product.originalPrice}</span>
+                </div>` :
+                `<span class="text-xl font-bold text-pink-600">฿${product.price}</span>`;
+
+            return `
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover relative">
+                    ${discountBadge}
+                    <div class="p-6 text-center">
+                        <div class="text-6xl mb-4">${product.image}</div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">${product.name}</h4>
+                        <p class="text-gray-600 text-sm mb-4">${product.description}</p>
+                        ${priceDisplay}
+                        <div class="mt-4 space-y-2">
+                            <button onclick="showProductDetail(${product.id})" class="w-full bg-pink-100 text-pink-600 py-2 px-4 rounded-lg hover:bg-pink-200 transition-colors">
+                                ดูรายละเอียด
+                            </button>
+                            <button onclick="addToCart(${product.id})" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+                                เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById('modal-title').textContent = product.name;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-8xl mb-4">${product.image}</div>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-gray-700">${product.description}</p>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            ${product.originalPrice ? 
+                                `<div class="flex items-center space-x-2">
+                                    <span class="text-2xl font-bold text-pink-600">฿${product.price}</span>
+                                    <span class="text-lg text-gray-500 line-through">฿${product.originalPrice}</span>
+                                </div>` :
+                                `<span class="text-2xl font-bold text-pink-600">฿${product.price}</span>`
+                            }
+                        </div>
+                        <div class="text-sm ${product.inStock ? 'text-green-600' : 'text-red-600'}">
+                            ${product.inStock ? '✅ มีสินค้า' : '❌ สินค้าหมด'}
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button onclick="addToCart(${product.id}); closeModal();" class="flex-1 bg-pink-600 text-white py-3 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+                            เพิ่มลงตะกร้า
+                        </button>
+                        <button onclick="closeModal()" class="flex-1 bg-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-400 transition-colors">
+                            ปิด
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // Filter functions
+        function filterProducts(category) {
+            const filteredProducts = category === 'all' ? products : products.filter(p => p.category === category);
+            const container = document.getElementById('all-products');
+            container.innerHTML = filteredProducts.map(product => createProductCard(product)).join('');
+            
+            // Update filter button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-pink-500', 'text-white');
+                btn.classList.add('bg-pink-200', 'text-pink-800');
+            });
+            event.target.classList.remove('bg-pink-200', 'text-pink-800');
+            event.target.classList.add('bg-pink-500', 'text-white');
+        }
+
+        // Search function
+        function searchProducts() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const filteredProducts = products.filter(p => 
+                p.name.toLowerCase().includes(searchTerm) || 
+                p.description.toLowerCase().includes(searchTerm)
+            );
+            
+            if (filteredProducts.length > 0) {
+                showSection('products');
+                const container = document.getElementById('all-products');
+                container.innerHTML = filteredProducts.map(product => createProductCard(product)).join('');
+            } else {
+                showNotification('ไม่พบสินค้าที่ค้นหา', 'error');
+            }
+        }
+
+        // Cart functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product || !product.inStock) {
+                showNotification('ไม่สามารถเพิ่มสินค้าได้', 'error');
+                return;
+            }
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+
+            updateCartDisplay();
+            showNotification('เพิ่มสินค้าลงตะกร้าแล้ว', 'success');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartDisplay();
+            displayCart();
+            showNotification('ลบสินค้าออกจากตะกร้าแล้ว', 'success');
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartDisplay();
+                    displayCart();
+                }
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartBadge = document.getElementById('cart-badge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                cartBadge.textContent = totalItems;
+                cartBadge.classList.remove('hidden');
+                cartBadge.classList.add('cart-badge');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+        }
+
+        function displayCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartSummary = document.getElementById('cart-summary');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-6xl mb-4">🛒</div>
+                        <p class="text-gray-500 text-lg">ตะกร้าสินค้าว่างเปล่า</p>
+                        <button onclick="showSection('products')" class="mt-4 bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition-colors">
+                            เลือกซื้อสินค้า
+                        </button>
+                    </div>
+                `;
+                cartSummary.innerHTML = '';
+                return;
+            }
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="bg-white p-4 rounded-lg shadow flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-3xl">${item.image}</div>
+                        <div>
+                            <h4 class="font-semibold">${item.name}</h4>
+                            <p class="text-pink-600 font-bold">฿${item.price}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300">-</button>
+                            <span class="w-8 text-center">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300">+</button>
+                        </div>
+                        <div class="text-lg font-bold">฿${item.price * item.quantity}</div>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal >= 500 ? 0 : 50;
+            const total = subtotal + shipping;
+
+            cartSummary.innerHTML = `
+                <h3 class="text-xl font-bold text-pink-800 mb-4">สรุปคำสั่งซื้อ</h3>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span>ราคาสินค้า</span>
+                        <span>฿${subtotal}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>ค่าจัดส่ง</span>
+                        <span>${shipping === 0 ? 'ฟรี' : '฿' + shipping}</span>
+                    </div>
+                    ${shipping === 0 ? '<p class="text-sm text-green-600">🎉 ฟรีค่าจัดส่งสำหรับคำสั่งซื้อตั้งแต่ ฿500</p>' : ''}
+                    <hr class="my-2">
+                    <div class="flex justify-between text-lg font-bold">
+                        <span>รวมทั้งหมด</span>
+                        <span class="text-pink-600">฿${total}</span>
+                    </div>
+                </div>
+                <button onclick="proceedToCheckout()" class="w-full mt-4 bg-pink-600 text-white py-3 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+                    ดำเนินการชำระเงิน
+                </button>
+            `;
+        }
+
+        function proceedToCheckout() {
+            if (!currentUser) {
+                showNotification('กรุณาเข้าสู่ระบบก่อนชำระเงิน', 'error');
+                showSection('login');
+                return;
+            }
+            
+            showSection('checkout');
+            displayCheckoutSummary();
+        }
+
+        // Promotions
+        function loadPromotions() {
+            const promotions = [
+                {
+                    title: 'ลดราคาพิเศษ 25%',
+                    description: 'สำหรับกุหลาบแดงและช่อดอกไม้รวม',
+                    image: '🎉',
+                    code: 'LOVE25'
+                },
+                {
+                    title: 'ฟรีค่าจัดส่ง',
+                    description: 'เมื่อซื้อครบ ฿500 ขึ้นไป',
+                    image: '🚚',
+                    code: 'FREESHIP'
+                }
+            ];
+
+            const container = document.getElementById('promotions-list');
+            container.innerHTML = promotions.map(promo => `
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-6xl mb-4">${promo.image}</div>
+                    <h3 class="text-xl font-bold text-pink-800 mb-2">${promo.title}</h3>
+                    <p class="text-gray-600 mb-4">${promo.description}</p>
+                    <div class="bg-pink-100 text-pink-800 px-4 py-2 rounded-lg font-mono font-bold">
+                        ${promo.code}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Authentication
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Simple demo login
+            if (email && password) {
+                currentUser = {
+                    name: 'ผู้ใช้ทดสอบ',
+                    email: email
+                };
+                
+                document.getElementById('auth-link').textContent = 'ออกจากระบบ';
+                document.getElementById('auth-link').onclick = logout;
+                
+                showNotification('เข้าสู่ระบบสำเร็จ', 'success');
+                showSection('home');
+            } else {
+                showNotification('กรุณากรอกข้อมูลให้ครบถ้วน', 'error');
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const phone = document.getElementById('reg-phone').value;
+            const password = document.getElementById('reg-password').value;
+
+            if (name && email && phone && password) {
+                currentUser = {
+                    name: name,
+                    email: email,
+                    phone: phone
+                };
+                
+                document.getElementById('auth-link').textContent = 'ออกจากระบบ';
+                document.getElementById('auth-link').onclick = logout;
+                
+                showNotification('สมัครสมาชิกสำเร็จ', 'success');
+                showSection('home');
+            } else {
+                showNotification('กรุณากรอกข้อมูลให้ครบถ้วน', 'error');
+            }
+        }
+
+        function showRegister() {
+            showSection('register');
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('auth-link').textContent = 'เข้าสู่ระบบ';
+            document.getElementById('auth-link').onclick = () => showSection('login');
+            showNotification('ออกจากระบบแล้ว', 'success');
+            showSection('home');
+        }
+
+        // Checkout
+        function displayCheckoutSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal >= 500 ? 0 : 50;
+            const total = subtotal + shipping;
+
+            document.getElementById('checkout-summary').innerHTML = `
+                <div class="space-y-4">
+                    ${cart.map(item => `
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-2">
+                                <span>${item.image}</span>
+                                <span>${item.name} x${item.quantity}</span>
+                            </div>
+                            <span>฿${item.price * item.quantity}</span>
+                        </div>
+                    `).join('')}
+                    <hr>
+                    <div class="flex justify-between">
+                        <span>ราคาสินค้า</span>
+                        <span>฿${subtotal}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>ค่าจัดส่ง</span>
+                        <span>${shipping === 0 ? 'ฟรี' : '฿' + shipping}</span>
+                    </div>
+                    <hr>
+                    <div class="flex justify-between text-lg font-bold">
+                        <span>รวมทั้งหมด</span>
+                        <span class="text-pink-600">฿${total}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function processOrder() {
+            const deliveryName = document.getElementById('delivery-name').value;
+            const deliveryPhone = document.getElementById('delivery-phone').value;
+            const deliveryAddress = document.getElementById('delivery-address').value;
+            const deliveryDate = document.getElementById('delivery-date').value;
+
+            if (!deliveryName || !deliveryPhone || !deliveryAddress || !deliveryDate) {
+                showNotification('กรุณากรอกข้อมูลให้ครบถ้วน', 'error');
+                return;
+            }
+
+            // Generate order number
+            const orderNumber = 'BG' + Date.now().toString().slice(-6);
+            
+            // Clear cart
+            cart = [];
+            updateCartDisplay();
+            
+            // Show success message
+            showNotification(`สั่งซื้อสำเร็จ! หมายเลขคำสั่งซื้อ: ${orderNumber}`, 'success');
+            showSection('home');
+        }
+
+        // Utility functions
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg ${
+                type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function setMinDate() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const deliveryDate = document.getElementById('delivery-date');
+            if (deliveryDate) {
+                deliveryDate.min = tomorrow.toISOString().split('T')[0];
+            }
+        }
+
+        // Initialize the website when page loads
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Handle Enter key in search
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchProducts();
+                    }
+                });
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98f8de5545b6f4cf',t:'MTc2MDYzMTQ2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
