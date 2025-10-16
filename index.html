@@ -146,7 +146,7 @@
         <section id="promotions-section" class="section-content hidden">
             <div class="max-w-7xl mx-auto px-4 py-16">
                 <h2 class="text-3xl font-bold text-center text-pink-800 mb-12">โปรโมชั่นพิเศษ</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="promotions-list">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="promotions-list">
                     <!-- Promotions will be loaded here -->
                 </div>
             </div>
@@ -392,6 +392,252 @@
                 category: 'sunflowers',
                 image: '🌻',
                 description: 'ดอกทานตะวันสดใส เติมความสุขให้กับทุกวัน',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 7,
+                name: 'กุหลาบสีชมพู',
+                price: 160,
+                originalPrice: 220,
+                category: 'roses',
+                image: '🌹',
+                description: 'กุหลาบสีชมพูหวาน แสดงถึงความชื่นชมและความขอบคุณ',
+                inStock: true,
+                isPromotion: true
+            },
+            {
+                id: 8,
+                name: 'ดอกลิลลี่ขาว',
+                price: 180,
+                category: 'lilies',
+                image: '🤍',
+                description: 'ดอกลิลลี่ขาวบริสุทธิ์ หอมหวาน เหมาะสำหรับงานพิธี',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 9,
+                name: 'ดอกคาร์เนชั่นสีแดง',
+                price: 90,
+                category: 'carnations',
+                image: '🌺',
+                description: 'ดอกคาร์เนชั่นสีแดงสด สัญลักษณ์แห่งความรักและความเคารพ',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 10,
+                name: 'ช่อดอกไม้วันเกิด',
+                price: 380,
+                originalPrice: 480,
+                category: 'bouquets',
+                image: '🎂',
+                description: 'ช่อดอกไม้พิเศษสำหรับวันเกิด ประกอบด้วยดอกไม้หลากสี',
+                inStock: true,
+                isPromotion: true
+            },
+            {
+                id: 11,
+                name: 'ทิวลิปสีเหลือง',
+                price: 130,
+                category: 'tulips',
+                image: '🌷',
+                description: 'ทิวลิปสีเหลืองสดใส นำความสุขและความหวังมาให้',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 12,
+                name: 'กล้วยไม้ฟาแลนนอปซิส',
+                price: 420,
+                category: 'orchids',
+                image: '🌺',
+                description: 'กล้วยไม้ฟาแลนนอปซิสสีขาว หรูหรา เลี้ยงง่าย ดูแลไม่ยาก',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 13,
+                name: 'ดอกไฮเดรนเยีย',
+                price: 250,
+                category: 'hydrangeas',
+                image: '💙',
+                description: 'ดอกไฮเดรนเยียสีฟ้า ดอกใหญ่สวยงาม เหมาะตกแต่งบ้าน',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 14,
+                name: 'ช่อกุหลาบ 12 ดอก',
+                price: 680,
+                originalPrice: 850,
+                category: 'bouquets',
+                image: '💐',
+                description: 'ช่อกุหลาบแดง 12 ดอก สำหรับคนพิเศษในวันพิเศษ',
+                inStock: true,
+                isPromotion: true
+            },
+            {
+                id: 15,
+                name: 'ดอกเยอบีร่า',
+                price: 70,
+                category: 'gerberas',
+                image: '🌼',
+                description: 'ดอกเยอบีร่าสีส้มสดใส เติมพลังบวกให้กับทุกวัน',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 16,
+                name: 'ดอกไอริส',
+                price: 110,
+                category: 'iris',
+                image: '💜',
+                description: 'ดอกไอริสสีม่วงสวยงาม สัญลักษณ์แห่งความภาคภูมิใจ',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 17,
+                name: 'ดอกแอนโทเรียม',
+                price: 200,
+                category: 'anthuriums',
+                image: '❤️',
+                description: 'ดอกแอนโทเรียมสีแดง ทนทาน เหมาะสำหรับตกแต่งออฟฟิศ',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 18,
+                name: 'ช่อดอกไม้แห้ง',
+                price: 320,
+                originalPrice: 400,
+                category: 'bouquets',
+                image: '🌾',
+                description: 'ช่อดอกไม้แห้งสไตล์วินเทจ ทนทาน ไม่ต้องรดน้ำ',
+                inStock: true,
+                isPromotion: true
+            },
+            {
+                id: 19,
+                name: 'ดอกลาเวนเดอร์',
+                price: 150,
+                category: 'lavender',
+                image: '💜',
+                description: 'ดอกลาเวนเดอร์หอมหวาน ช่วยผ่อนคลายและนอนหลับสบาย',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 20,
+                name: 'ดอกบัวสวรรค์',
+                price: 95,
+                category: 'birds',
+                image: '🦜',
+                description: 'ดอกบัวสวรรค์สีส้ม รูปทรงเหมือนนกสวยงามแปลกตา',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 21,
+                name: 'ทิวลิปสีม่วง',
+                price: 125,
+                category: 'tulips',
+                image: '🌷',
+                description: 'ทิวลิปสีม่วงสวยงาม สื่อถึงความสง่างามและความภูมิใจ',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 22,
+                name: 'กุหลาบสีเหลือง',
+                price: 145,
+                category: 'roses',
+                image: '🌻',
+                description: 'กุหลาบสีเหลืองสดใส สัญลักษณ์แห่งมิตรภาพและความสุข',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 23,
+                name: 'ดอกมะลิ',
+                price: 60,
+                category: 'jasmine',
+                image: '🤍',
+                description: 'ดอกมะลิขาวหอมหวาน ดอกไม้ประจำชาติไทย',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 24,
+                name: 'ช่อดอกไม้งานแต่ง',
+                price: 1200,
+                originalPrice: 1500,
+                category: 'bouquets',
+                image: '👰',
+                description: 'ช่อดอกไม้เจ้าสาวสีขาวหรูหรา ประกอบด้วยกุหลาบและลิลลี่',
+                inStock: true,
+                isPromotion: true
+            },
+            {
+                id: 25,
+                name: 'ดอกคาลล่าลิลลี่',
+                price: 280,
+                category: 'lilies',
+                image: '🤍',
+                description: 'ดอกคาลล่าลิลลี่สีขาวสง่างาม เหมาะสำหรับงานพิธีสำคัญ',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 26,
+                name: 'ดอกเดซี่',
+                price: 55,
+                category: 'daisies',
+                image: '🌼',
+                description: 'ดอกเดซี่สีขาวน่ารัก สื่อถึงความบริสุทธิ์และความไร้เดียงสา',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 27,
+                name: 'ดอกฟรีเซีย',
+                price: 135,
+                category: 'freesias',
+                image: '💛',
+                description: 'ดอกฟรีเซียสีเหลืองหอมหวาน เหมาะสำหรับตกแต่งห้อง',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 28,
+                name: 'ช่อดอกไม้คลาสสิค',
+                price: 520,
+                originalPrice: 650,
+                category: 'bouquets',
+                image: '💐',
+                description: 'ช่อดอกไม้คลาสสิคสีแดงขาว เหมาะสำหรับทุกโอกาส',
+                inStock: true,
+                isPromotion: true
+            },
+            {
+                id: 29,
+                name: 'ดอกพีโอนี',
+                price: 350,
+                category: 'peonies',
+                image: '🌸',
+                description: 'ดอกพีโอนีสีชมพูหวาน ดอกไม้แห่งความโรแมนติก',
+                inStock: true,
+                isPromotion: false
+            },
+            {
+                id: 30,
+                name: 'ดอกสแนปดราก้อน',
+                price: 85,
+                category: 'snapdragons',
+                image: '🌺',
+                description: 'ดอกสแนปดราก้อนสีชมพู ดอกไม้ที่มีรูปทรงแปลกตาน่ารัก',
                 inStock: true,
                 isPromotion: false
             }
@@ -707,6 +953,42 @@
                     description: 'เมื่อซื้อครบ ฿500 ขึ้นไป',
                     image: '🚚',
                     code: 'FREESHIP'
+                },
+                {
+                    title: 'ซื้อ 2 แถม 1',
+                    description: 'ทิวลิปทุกสี ซื้อ 2 ดอก แถม 1 ดอก',
+                    image: '🌷',
+                    code: 'TULIP21'
+                },
+                {
+                    title: 'ลด 30% วันเกิด',
+                    description: 'ช่อดอกไม้วันเกิดพิเศษ ลดราคา 30%',
+                    image: '🎂',
+                    code: 'BIRTHDAY30'
+                },
+                {
+                    title: 'แพ็คคู่ประหยัด',
+                    description: 'กุหลาบ + กล้วยไม้ ลดเพิ่ม 20%',
+                    image: '💕',
+                    code: 'COUPLE20'
+                },
+                {
+                    title: 'โปรสมาชิกใหม่',
+                    description: 'สมาชิกใหม่รับส่วนลด 15% ทันที',
+                    image: '🆕',
+                    code: 'NEWMEMBER15'
+                },
+                {
+                    title: 'ลดราคาช่วงเช้า',
+                    description: 'สั่งก่อน 10:00 น. ลด 10%',
+                    image: '🌅',
+                    code: 'MORNING10'
+                },
+                {
+                    title: 'โปรวันหยุด',
+                    description: 'วันเสาร์-อาทิตย์ ลดเพิ่ม 18%',
+                    image: '🎪',
+                    code: 'WEEKEND18'
                 }
             ];
 
@@ -881,5 +1163,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98f8de5545b6f4cf',t:'MTc2MDYzMTQ2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98f8e8aaf4ebf4cf',t:'MTc2MDYzMTg5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
