@@ -283,6 +283,39 @@
         </div>
     </main>
 
+    <!-- CodeEX Test Lab -->
+    <section id="codeex-section" class="bg-white py-16">
+        <div class="max-w-5xl mx-auto px-4">
+            <div id="codeex-card" class="bg-pink-100 border border-pink-200 rounded-2xl p-8 shadow-lg">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="text-3xl">🧪</span>
+                    <h2 class="text-2xl font-bold text-pink-800">CodeEX Test Lab</h2>
+                </div>
+                <p class="text-pink-700 leading-relaxed mb-6">
+                    โซนนี้ถูกออกแบบมาเพื่อทดลองสคริปต์เล็ก ๆ และตรวจสอบการโต้ตอบของ DOM อย่างรวดเร็ว
+                    สำหรับผู้ที่ต้องการทดสอบคำสั่งของ CodeEX หรืออธิบายการทำงานของฟีเจอร์ให้กับผู้อื่น
+                </p>
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <button onclick="runDemoTest()" class="bg-pink-600 text-white px-5 py-2 rounded-full shadow hover:bg-pink-700 transition-colors">
+                        เพิ่มบันทึกการทดสอบ
+                    </button>
+                    <button onclick="resetDemoTests()" class="bg-white border border-pink-300 text-pink-700 px-5 py-2 rounded-full hover:bg-pink-50 transition-colors">
+                        ล้างบันทึก
+                    </button>
+                    <button id="test-mode-btn" onclick="toggleTestMode()" class="bg-gray-200 text-gray-700 px-5 py-2 rounded-full hover:bg-gray-300 transition-colors">
+                        เปิดโหมด Debug
+                    </button>
+                </div>
+                <div class="bg-white rounded-xl shadow-inner p-5">
+                    <h3 class="text-lg font-semibold text-pink-800 mb-3">บันทึกการทดสอบล่าสุด</h3>
+                    <ul id="test-log" class="space-y-2 text-sm text-gray-700">
+                        <li class="text-gray-400 italic">ยังไม่มีข้อมูลการทดสอบ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-pink-800 text-white py-12">
         <div class="max-w-7xl mx-auto px-4">
@@ -332,6 +365,8 @@
         // Global variables
         let currentUser = null;
         let cart = [];
+        const testLogEntries = [];
+        let isTestModeEnabled = false;
         let products = [
             {
                 id: 1,
@@ -650,6 +685,95 @@
             loadPromotions();
             updateCartDisplay();
             setMinDate();
+            renderTestLog();
+            updateTestModeVisuals();
+        }
+
+        // CodeEX test lab helpers
+        function runDemoTest() {
+            const now = new Date();
+            const timestamp = now.toLocaleString('th-TH', {
+                dateStyle: 'medium',
+                timeStyle: 'medium'
+            });
+            const scenarios = [
+                'ตรวจสอบการเพิ่มสินค้าในตะกร้า',
+                'ตรวจสอบการกรองสินค้า',
+                'ตรวจสอบการใช้โค้ดโปรโมชั่น',
+                'ตรวจสอบการสลับหน้า Sections',
+                'ตรวจสอบการส่งคำสั่งซื้อจำลอง'
+            ];
+            const summary = scenarios[Math.floor(Math.random() * scenarios.length)];
+
+            testLogEntries.unshift({ timestamp, summary });
+            if (testLogEntries.length > 5) {
+                testLogEntries.pop();
+            }
+
+            renderTestLog();
+            showNotification(`บันทึกการทดสอบแล้ว: ${summary}`, 'success');
+        }
+
+        function resetDemoTests() {
+            if (testLogEntries.length === 0) {
+                showNotification('ยังไม่มีข้อมูลให้ล้าง', 'error');
+                return;
+            }
+
+            testLogEntries.length = 0;
+            renderTestLog();
+            showNotification('ล้างบันทึกการทดสอบแล้ว', 'success');
+        }
+
+        function toggleTestMode() {
+            isTestModeEnabled = !isTestModeEnabled;
+            updateTestModeVisuals();
+            showNotification(isTestModeEnabled ? 'เปิดโหมด Debug แล้ว' : 'ปิดโหมด Debug แล้ว', 'success');
+        }
+
+        function updateTestModeVisuals() {
+            const card = document.getElementById('codeex-card');
+            const button = document.getElementById('test-mode-btn');
+
+            if (!card || !button) {
+                return;
+            }
+
+            if (isTestModeEnabled) {
+                card.classList.remove('bg-pink-100');
+                card.classList.add('ring-4', 'ring-pink-400', 'shadow-2xl', 'bg-pink-50');
+                button.textContent = 'ปิดโหมด Debug';
+                button.classList.remove('bg-gray-200', 'text-gray-700');
+                button.classList.add('bg-pink-700', 'text-white');
+            } else {
+                card.classList.remove('ring-4', 'ring-pink-400', 'shadow-2xl', 'bg-pink-50');
+                card.classList.add('bg-pink-100');
+                button.textContent = 'เปิดโหมด Debug';
+                button.classList.add('bg-gray-200', 'text-gray-700');
+                button.classList.remove('bg-pink-700', 'text-white');
+            }
+        }
+
+        function renderTestLog() {
+            const list = document.getElementById('test-log');
+            if (!list) {
+                return;
+            }
+
+            if (testLogEntries.length === 0) {
+                list.innerHTML = '<li class="text-gray-400 italic">ยังไม่มีข้อมูลการทดสอบ</li>';
+                return;
+            }
+
+            list.innerHTML = testLogEntries.map(entry => `
+                <li class="flex items-start justify-between gap-4 bg-pink-50 border border-pink-200 rounded-lg px-3 py-2">
+                    <div>
+                        <p class="font-medium text-pink-800">${entry.summary}</p>
+                        <p class="text-xs text-pink-600">${entry.timestamp}</p>
+                    </div>
+                    <span class="text-lg">✅</span>
+                </li>
+            `).join('');
         }
 
         // Navigation functions
